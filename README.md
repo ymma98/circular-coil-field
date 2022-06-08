@@ -8,6 +8,8 @@
 [2] Simple Analytic Expressions for the Magnetic Field of a Circular Current Loop,
     James Simpson et al
     
+    https://ntrs.nasa.gov/api/citations/20010038494/downloads/20010038494.pdf
+    
     
 notice: In Jackson's book, eq.(5.37) is wrong. For elliptic function on the numerator,
         they should be E(k\*\*2) and K(k\*\*2), but not the E(k) and K(k). Ref[2]'s work
