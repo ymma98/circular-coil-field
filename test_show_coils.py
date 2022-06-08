@@ -6,11 +6,11 @@ import matplotlib.patches as patches
 
 def calc_B():
     # generate coil array
-    coil_num = 10
+    coil_num = 20
     coil_ra = 0.4 # radius of coil
     start_z = -2.
     end_z = 2.
-    coil_current = 31.2e3
+    coil_current = 15e3
     coil_ra_list = np.ones(coil_num) * coil_ra
     coil_z_list = np.linspace(start_z, end_z, coil_num)
     coil_cur_list = np.ones(coil_num) * coil_current
@@ -47,25 +47,52 @@ def calc_B():
        )
 
 
-def plot_B(rr, zz, br2d, bz2d):
+def plot_B(rr, zz, br2d, bz2d, coil_ra_list, coil_z_list):
     # contour of br2d
     fig1 = plt.figure(1)
     ax1 = fig1.add_subplot(111)
     cs1 = ax1.contourf(rr, zz, br2d, cmap='rainbow')
+    _add_patch(ax1, coil_ra_list, coil_z_list)
     fig1.colorbar(cs1)
 
     # contour of bz2d
     fig2 = plt.figure(2)
     ax2 = fig2.add_subplot(111)
     cs2 = ax2.contourf(rr, zz, bz2d, cmap="rainbow")
+    _add_patch(ax2, coil_ra_list, coil_z_list)
     fig2.colorbar(cs2)
 
     # streamline plot of magnetic fields
     fig3 = plt.figure(3)
     ax3 = fig3.add_subplot(111)
+    _add_patch(ax3, coil_ra_list, coil_z_list)
     ax3.streamplot(r2d, z2d, br2d, bz2d, cmap="rainbow", color=bz2d)
 
     plt.show()
+
+
+def _add_patch(ax, coil_ra_list, coil_z_list):
+    num = coil_ra_list.shape[0]
+    zrange = np.amax(coil_z_list) - np.amin(coil_z_list)
+    zstart = np.amin(coil_z_list)
+    lgh = np.amin(coil_ra_list)/5 # length of the rectangle
+    while (lgh*num > zrange):
+        lgh *= 0.5
+    for i in range(num):
+        xc = coil_ra_list[i]  # x center of coil
+        zc = coil_z_list[i]  # z center of coil
+        xst = xc - lgh*0.5
+        zst = zc - lgh*0.5
+        ax.add_patch(
+           patches.Rectangle(
+              (xst, zst),
+              lgh/(zrange/np.amax(coil_ra_list)),
+              lgh,
+              facecolor='r',
+              edgecolor='none'
+            )
+        )
+
 
 
 
@@ -79,7 +106,9 @@ if __name__=="__main__":
     z2d = data['z2d']
     br2d = data['br2d']
     bz2d = data['bz2d']
-    plot_B(r2d, z2d, br2d, bz2d)
+    coil_ra_list = data["coil_ra_list"]
+    coil_z_list = data["coil_z_list"]
+    plot_B(r2d, z2d, br2d, bz2d, coil_ra_list, coil_z_list)
 
 
 
