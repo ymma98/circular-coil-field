@@ -5,12 +5,12 @@
 [1] Jackson, Thrid edition, eq. (5.38)
 
 
-[2] Simple Analytic Expressions for the Magnetic Field of a Circular Current Loop
+[2] Simple Analytic Expressions for the Magnetic Field of a Circular Current Loop,
     James Simpson et al
     
     
 notice: In Jackson's book, eq.(5.37) is wrong. For elliptic function on the numerator,
-        they should be E(k\*\*2) and K(k\*\*2), but not the E(k) and K(k)
+        they should be E(k\*\*2) and K(k\*\*2), but not the E(k) and K(k). Ref[2]'s work
+        is right.
 
-        the derivations of Br and Bz are in sympy_derive.py
 
