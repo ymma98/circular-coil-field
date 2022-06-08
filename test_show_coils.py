@@ -6,11 +6,11 @@ import matplotlib.patches as patches
 
 def calc_B():
     # generate coil array
-    coil_num = 20
+    coil_num = 50
     coil_ra = 0.4 # radius of coil
     start_z = -2.
     end_z = 2.
-    coil_current = 15e3
+    coil_current = 5e3
     coil_ra_list = np.ones(coil_num) * coil_ra
     coil_z_list = np.linspace(start_z, end_z, coil_num)
     coil_cur_list = np.ones(coil_num) * coil_current
@@ -67,6 +67,11 @@ def plot_B(rr, zz, br2d, bz2d, coil_ra_list, coil_z_list):
     ax3 = fig3.add_subplot(111)
     _add_patch(ax3, coil_ra_list, coil_z_list)
     ax3.streamplot(r2d, z2d, br2d, bz2d, cmap="rainbow", color=bz2d)
+
+    # 1d y-slice
+    fig4 = plt.figure(4)
+    ax4 = fig4.add_subplot(111)
+    ax4.plot(zz[:,-1], bz2d[:,-1])
 
     plt.show()
 
