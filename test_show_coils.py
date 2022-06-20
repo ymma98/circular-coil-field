@@ -6,11 +6,11 @@ import matplotlib.patches as patches
 
 def calc_B():
     # generate coil array
-    coil_num = 10
+    coil_num = 100
     coil_ra = 0.4 # radius of coil
     start_z = -2.
     end_z = 2.
-    coil_current = 25e3
+    coil_current = 2.5e3
     coil_ra_list = np.ones(coil_num) * coil_ra
     coil_z_list = np.linspace(start_z, end_z, coil_num)
     coil_cur_list = np.ones(coil_num) * coil_current
@@ -82,28 +82,6 @@ def plot_B(rr, zz, br2d, bz2d, coil_ra_list, coil_z_list):
 
     plt.show()
 
-
-# def _add_patch(ax, coil_ra_list, coil_z_list):
-#     num = coil_ra_list.shape[0]
-#     zrange = np.amax(coil_z_list) - np.amin(coil_z_list)
-#     zstart = np.amin(coil_z_list)
-#     lgh = np.amin(coil_ra_list)/5 # length of the rectangle
-#     while (lgh*num > zrange):
-#         lgh *= 0.5
-#     for i in range(num):
-#         xc = coil_ra_list[i]  # x center of coil
-#         zc = coil_z_list[i]  # z center of coil
-#         xst = xc - lgh*0.5
-#         zst = zc - lgh*0.5
-#         ax.add_patch(
-#            patches.Rectangle(
-#               (xst, zst),
-#               lgh/(zrange/np.amax(coil_ra_list)),
-#               lgh,
-#               facecolor='r',
-#               edgecolor='none'
-#             )
-#         )
 
 
 def _add_patch(ax, coil_ra_list, coil_z_list):
